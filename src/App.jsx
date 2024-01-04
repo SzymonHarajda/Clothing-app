@@ -1,12 +1,28 @@
-import Categories from './components/directory/categories.component';
+import Home from "./routes/home/home.component";
+import { Routes , Route, Outlet } from "react-router-dom";
 
-const App=() =>  {
+const Navigation = ()=>{
+    return(
+        <div>
+            <div>
+                <h1>I am navigation bar</h1>
+            </div>
+            <Outlet/>
+        </div>
+    );
+}
 
+const App = () =>  {
+ 
   return (
-      <section id='Categories'>
-          <Categories />
-      </section>
-      )  
+    <Routes>
+        <Route path="/" element={ <Navigation />}>   
+            <Route index element={ <Home />}/>
+            
+        </Route>
+    </Routes>
+    
+  );
 }
 
 export default App;
