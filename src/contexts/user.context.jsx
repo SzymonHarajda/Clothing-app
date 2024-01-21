@@ -13,7 +13,7 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
-  signOutUser();
+  // signOutUser();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
