@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { UserProvider } from './contexts/user.context';
 import { ProductsProvider } from './contexts/products.context';
-import { DropdownProvider } from './contexts/dropdown.contex';
+import { CartContext } from './contexts/cart.contex';
 
 import './index.scss';
 
@@ -16,9 +16,9 @@ root.render(
     <BrowserRouter>
       <UserProvider>
         <ProductsProvider>
-          <DropdownProvider>
+          <CartContext>
             <App />
-          </DropdownProvider>
+          </CartContext>
         </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
