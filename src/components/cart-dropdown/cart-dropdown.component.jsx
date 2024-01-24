@@ -1,6 +1,7 @@
-import Button from "../button/button.component";
+/* eslint-disable react/react-in-jsx-scope */
+import Button from '../button/button.component';
 
-import "./cart-dropdown.styles.scss";
+import './cart-dropdown.styles.scss';
 
 const CartDropdown = () => {
   return (
