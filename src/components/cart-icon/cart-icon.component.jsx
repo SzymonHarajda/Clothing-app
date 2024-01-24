@@ -8,7 +8,7 @@ import "./cart-icon.styles.scss";
 
 const CartIcon = () => {
   const { isOpen, setIsOpen } = useContext(DropdownContext);
-  const toggleIsOpen = ()=>setIsOpen(!isOpen);
+  const toggleIsOpen = () => setIsOpen(!isOpen);
   return (
     <div className="cart-icon-container" onClick={toggleIsOpen}>
       <ShopingIcon className="shopping-icon" />
