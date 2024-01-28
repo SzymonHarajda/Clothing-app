@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithRedirect,
@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-} from "firebase/auth";
+} from 'firebase/auth';
 
 import {
   getFirestore,
@@ -16,15 +16,18 @@ import {
   getDoc,
   setDoc,
   collection,
-} from "firebase/firestore";
+  writeBatch,
+  query,
+  getDocs,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCKwCrAqzdYtFckF1uFw2-MbrW9E3M0RVg",
-  authDomain: "cloathing-db-6de50.firebaseapp.com",
-  projectId: "cloathing-db-6de50",
-  storageBucket: "cloathing-db-6de50.appspot.com",
-  messagingSenderId: "88467929375",
-  appId: "1:88467929375:web:5b88318ee8925f467a582a",
+  apiKey: 'AIzaSyCKwCrAqzdYtFckF1uFw2-MbrW9E3M0RVg',
+  authDomain: 'cloathing-db-6de50.firebaseapp.com',
+  projectId: 'cloathing-db-6de50',
+  storageBucket: 'cloathing-db-6de50.appspot.com',
+  messagingSenderId: '88467929375',
+  appId: '1:88467929375:web:5b88318ee8925f467a582a',
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -32,7 +35,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 export const auth = getAuth();
@@ -43,12 +46,41 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd,
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach(object => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+  await batch.commit();
+  console.log('done');
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+  return categoryMap;
+};
+
 export const createUserDocumentFromAuth = async (
   userAuth,
-  additionalInformations = {}
+  additionalInformations = {},
 ) => {
   if (!userAuth) return;
-  const userDocRef = doc(db, "users", userAuth.uid);
+  const userDocRef = doc(db, 'users', userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -63,7 +95,7 @@ export const createUserDocumentFromAuth = async (
         ...additionalInformations,
       });
     } catch (err) {
-      console.log("error creating the user", err.message);
+      console.log('error creating the user', err.message);
     }
   }
   return userDocRef;
@@ -83,5 +115,5 @@ export const signInUserWithEmailAndPasword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callback) =>
+export const onAuthStateChangedListener = callback =>
   onAuthStateChanged(auth, callback);
