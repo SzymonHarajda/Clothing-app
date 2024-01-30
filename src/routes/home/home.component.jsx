@@ -1,11 +1,10 @@
-import Categories from '../../components/directory/categories.component';
-const Home = () =>  {
-
+import Directory from '../../components/directory/directory.component';
+const Home = () => {
   return (
-      <div >
-          <Categories />
-      </div>
-      )  
-}
+    <div>
+      <Directory />
+    </div>
+  );
+};
 
 export default Home;

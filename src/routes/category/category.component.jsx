@@ -16,7 +16,7 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   return (
-    <div className="category-container-route">
+    <div className="category-container">
       {products &&
         products.map(product => (
           <ProductCard key={product.id} product={product} />
