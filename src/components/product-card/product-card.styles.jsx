@@ -1,3 +1,6 @@
+import styled from 'styled-components';
+
+
 .product-card-container {
   width: 100%;
   display: flex;

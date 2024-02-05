@@ -1,4 +1,4 @@
-import './product-card.styles.scss';
+import './product-card.styles.jsx';
 
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
