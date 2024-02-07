@@ -4,7 +4,7 @@ import {
   CategoryPreviewContainer,
   Title,
   Preview,
-} from './category-preview.styles';
+} from './category-previwe.styles';
 
 const CategoryPreview = ({ title, products }) => {
   return (
