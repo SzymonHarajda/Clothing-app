@@ -1,18 +1,14 @@
-import "./form-input.styles.scss";
+import { FornmInputLabel, Input, Group } from './form-input.styles.jsx';
 const FornmInput = ({ label, ...otherProps }) => {
   return (
-    <div className="group">
-      <input className="form-input" {...otherProps} />
+    <Group>
+      <Input {...otherProps} />
       {label && (
-        <label
-          className={`${
-            otherProps.value.length ? "shrink" : ""
-          } form-input-label`}
-        >
+        <FornmInputLabel shrink={otherProps.value.length}>
           {label}
-        </label>
+        </FornmInputLabel>
       )}
-    </div>
+    </Group>
   );
 };
 
