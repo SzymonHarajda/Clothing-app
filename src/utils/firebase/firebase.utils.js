@@ -100,7 +100,7 @@ export const createUserDocumentFromAuth = async (
   }
   return userDocRef;
 };
-
+console.log(firebaseApp);
 export const creatAuthUserWithEmailAndPasword = async (email, password) => {
   if (!email || !password) return;
 

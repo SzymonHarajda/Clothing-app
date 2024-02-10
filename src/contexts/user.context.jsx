@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import {
   onAuthStateChangedListener,
-  signOutUser,
+  // signOutUser,
   createUserDocumentFromAuth,
 } from '../utils/firebase/firebase.utils';
 //! as the accual value you want to acces
