@@ -21,7 +21,7 @@ You may also see any lint errors in the console.
 
 ## Features
 
-⚡️ Modern UI Design 
+⚡️ Modern UI Design\
 ⚡️ Styled Custom SCSS\
 ⚡️ Fully Responsive\
 ⚡️ Valid HTML5 & CSS3\
