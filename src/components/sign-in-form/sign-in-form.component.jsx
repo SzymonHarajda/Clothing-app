@@ -1,13 +1,10 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import FornmInput from '../form-input/form-input.component';
 import { SignIn, ButtonContainer } from './sign-in-form.styles';
 
-import {
-  signInUserWithEmailAndPasword,
-  signInWithGooglePopup,
-} from '../../utils/firebase/firebase.utils';
-
+import { googleSignInStart,emailSignInStart } from '../../store/user/user.action';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 const defaultFormFields = {
@@ -16,6 +13,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -23,33 +21,34 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async event => {
-    event.preventDefault();
-
-    try {
-      const user = await signInUserWithEmailAndPasword(email, password);
-      alert(`${user} loged in`);
-      resetFormFields();
-    } catch (error) {
-      switch (error.code) {
-        case 'auth/wrong-password':
-          alert('incorrect password for email');
-          break;
-        case 'auth/user-not-found':
-          alert('no user associated with this email');
-          break;
-        default:
-          console.log(error);
-      }
-    }
-  };
-
+  
   const handleChange = event => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
+
+    const handleSubmit = async event => {
+      event.preventDefault();
+  
+      try {
+        dispatch(emailSignInStart(email,password))
+        resetFormFields();
+      } catch (error) {
+        switch (error.code) {
+          case 'auth/wrong-password':
+            alert('incorrect password for email');
+            break;
+          case 'auth/user-not-found':
+            alert('no user associated with this email');
+            break;
+          default:
+            console.log(error);
+        }
+      }
+    };
   };
+
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart())
   };
 
   return (
