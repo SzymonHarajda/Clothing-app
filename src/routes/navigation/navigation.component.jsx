@@ -11,18 +11,13 @@ import { selectCurrentUser } from '../../store/user/user.selector.js';
 import { ReactComponent as CrawnLogo } from '../../assets/crown.svg';
 import { signOutStart } from '../../store/user/user.action.js';
 
-import {
-  NavigationContainer,
-  NavLink,
-  NavLinks,
-  LogoContainer,
-} from './navigation.style.jsx';
+import { NavigationContainer, NavLink, NavLinks, LogoContainer } from './navigation.style.jsx';
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
-  const signOutUser = ()=>dispatch(signOutStart());
+  const signOutUser = () => dispatch(signOutStart());
   return (
     <Fragment>
       <NavigationContainer>

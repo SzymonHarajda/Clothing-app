@@ -6,15 +6,10 @@ export const feachCategoriesStart = () => {
   return createAction(CATEGORIES_ACTION_TYPES.FEACH_CATEGORIES_START);
 };
 
-export const feachCategoriesSuccess = categoriesArray => {
-  return createAction(
-    CATEGORIES_ACTION_TYPES.FEACH_CATEGORIES_SUCCESS,
-    categoriesArray,
-  );
+export const feachCategoriesSuccess = (categoriesArray) => {
+  return createAction(CATEGORIES_ACTION_TYPES.FEACH_CATEGORIES_SUCCESS, categoriesArray);
 };
 
-export const feachCategoriesFailed = error => {
+export const feachCategoriesFailed = (error) => {
   return createAction(CATEGORIES_ACTION_TYPES.FEACH_CATEGORIES_FAILED, error);
 };
-
-

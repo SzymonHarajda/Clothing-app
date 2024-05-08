@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-
 import FornmInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
@@ -12,7 +11,7 @@ const defaultFormFields = {
   displayName: '',
   email: '',
   password: '',
-  confirmPassword: '',
+  confirmPassword: ''
 };
 
 const SignUpForm = () => {
@@ -23,7 +22,7 @@ const SignUpForm = () => {
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -31,7 +30,7 @@ const SignUpForm = () => {
       return;
     }
     try {
-      dispatch(signUpStart(email,password,displayName));
+      dispatch(signUpStart(email, password, displayName));
       resetFormFields();
       alert('User created');
     } catch (err) {
@@ -41,7 +40,7 @@ const SignUpForm = () => {
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };

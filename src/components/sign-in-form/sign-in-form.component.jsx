@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import FornmInput from '../form-input/form-input.component';
 import { SignIn, ButtonContainer } from './sign-in-form.styles';
 
-import { googleSignInStart,emailSignInStart } from '../../store/user/user.action';
+import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 const defaultFormFields = {
   email: '',
-  password: '',
+  password: ''
 };
 
 const SignInForm = () => {
@@ -21,34 +21,32 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  
-  const handleChange = event => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      dispatch(emailSignInStart(email, password));
+      resetFormFields();
+    } catch (error) {
+      switch (error.code) {
+        case 'auth/wrong-password':
+          alert('incorrect password for email');
+          break;
+        case 'auth/user-not-found':
+          alert('no user associated with this email');
+          break;
+        default:
+          console.log(error);
+      }
+    }
+  };
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
-
-    const handleSubmit = async event => {
-      event.preventDefault();
-  
-      try {
-        dispatch(emailSignInStart(email,password))
-        resetFormFields();
-      } catch (error) {
-        switch (error.code) {
-          case 'auth/wrong-password':
-            alert('incorrect password for email');
-            break;
-          case 'auth/user-not-found':
-            alert('no user associated with this email');
-            break;
-          default:
-            console.log(error);
-        }
-      }
-    };
   };
 
   const signInWithGoogle = async () => {
-    dispatch(googleSignInStart())
+    dispatch(googleSignInStart());
   };
 
   return (
@@ -75,11 +73,7 @@ const SignInForm = () => {
         />
         <ButtonContainer>
           <Button type="submit">Sign in</Button>
-          <Button
-            type="button"
-            buttonType={BUTTON_TYPE_CLASSES.google}
-            onClick={signInWithGoogle}
-          >
+          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
             Google Sign In{' '}
           </Button>
         </ButtonContainer>

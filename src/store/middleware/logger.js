@@ -1,4 +1,4 @@
-const loggerMiddleware = store => next => action => {
+const loggerMiddleware = (store) => (next) => (action) => {
   if (!action.type) {
     return next(action);
   }
